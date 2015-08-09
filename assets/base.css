@@ -1,0 +1,40 @@
+body{
+	padding:10px;
+}
+.tab_{
+	display:none;
+}
+.tab_.active{
+	display:block;
+}
+#tabs>span{
+	font-size: 10pt;
+    margin-right: 5px;
+	
+	border-left:  1px solid grey; 
+	border-right: 1px solid grey; 
+	border-top:   1px solid grey; 
+	-border-bottom:   1px solid white; 
+	padding:5px;
+
+}
+.tab, span[data-tab='reload']{
+	cursor:pointer;
+}
+#tabs{
+ margin-left: 20px;
+}
+#tabs_{
+	border-top: 1px solid grey; 
+	margin-top: 4px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+span.active{
+font-weight: bold;
+	color:#3F84C3;
+	background-color: #EAF7FF;
+}
+.blocked{
+	border-color:white !important;
+}
