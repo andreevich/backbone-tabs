@@ -23,7 +23,7 @@ var app = app || {};
 			}
 		},
 		active:function(){				// делаем таб+вкладку активными
-			if (!this.get('hidden')){ 	// делаем активную только нескрытую вкладку!
+			if (!this.get('hidden') && !this.get('isblocked')){ 	// делаем активную только нескрытую вкладку!
 				app.tabs.each(function(a){
 					a.set({isactive:'' },{validate:true})
 				})
@@ -67,7 +67,9 @@ var app = app || {};
 		 	this.render()
 		},
 		click:function(){
-			this.model.active()
+			//console.log(this.model.get('isblocked'))
+			//if (!this.model.get('isblocked'))
+				this.model.active()
 			this.model.f()
 		},
 		
