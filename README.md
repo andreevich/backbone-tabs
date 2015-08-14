@@ -19,3 +19,9 @@ app.tabs = new app.Tabs([
 	])
 ```	
 
+# Манипуляции с Табами
+```javascript
+	app.tabs.get('insert').hide()  	// Скрыть таб. Сделать активным первый незаблокированный.
+	app.tabs.get('insert').show()		// Отобразить таб.
+	app.tabs.get('report').active()	// Сделать активным таб и вкладку.	
+```	

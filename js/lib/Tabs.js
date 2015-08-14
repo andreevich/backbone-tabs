@@ -15,12 +15,34 @@
 			isblocked:false,  			// залоченый таб без вкладки
 			content:"tab's content", 	// содержимое вкладки
 			isactive:'' ,						// активный таб isactive:'active' )
+			hidden:false					// прячем таб
 		},
-		validate:function(){
-			if (this.isblocked){
-				console.log(this)
-				return "-"
+		validate:function(attrs, options){
+			if(attrs.isblocked){
+					return "This tab is blocked2"
 			}
+		},
+		active:function(){
+			app.tabs.each(function(a){
+				a.set({isactive:'' },{validate:true})
+			})
+			
+			this.set({isactive:'active'},{validate:true})
+		},
+		hide:function(){
+			this.set({hidden:true},{validate:true})
+			var stop=false
+			app.tabs.each(function(a){
+				if (!a.get('hidden') && !a.get('isblocked') && !stop){
+					console.log('>',a.get('name'))
+					a.active()
+					stop=true
+				}
+			})
+			
+		},
+		show:function(bool){
+			this.set({hidden:false},{validate:true})
 		},
 		f:function(){}					//вызов пустой функции по клику на таб. Переопределяется в основном приложении
 	});
@@ -78,7 +100,7 @@
 		el: "#tabs",
 		initialize: function(){
 			this.render()
-			this.listenTo(app.tabs, "change", this.render);
+			this.listenTo(app.tabs, "change add", this.render);
 		},
 		render: function(){
 			$('#tabs, #tabs_').html('')

@@ -8,14 +8,14 @@
 </head>
 <body>
  <script type="text/template" id="tabitem-template">
-			<% if (!isblocked) { %>
+			<% if (!isblocked && !hidden) { %>
 			<span class='tab <%=isactive%>'  data-tab='<%=name%>'><%=text%></span>
-		<%} else%>
+		<%} else if(isblocked && !hidden)%>
 			<span class='blocked' data-tab='<%=name%>'><%=text%></span>
 		
  </script>
   <script type="text/template" id="tabitem_-template_">
-  		<% if (!isblocked) { %>
+  		<% if (!isblocked && !hidden) { %>
 			<div class='tab_ <%=isactive%>'  id='<%=name%>'><%=content%></div>
 		<%}%>
 		

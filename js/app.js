@@ -14,6 +14,10 @@ $(function(){
 	
 	app.tabs.get('report').set({content:"Новый отчёт"})
 	
+	
+	//app.tabs.get('insert').hide()
+	//app.tabs.get('report').active()
+	
 	/*
 		Добавляю функционала кнопке. Переопределяю функцию пустую f()
 	*/
