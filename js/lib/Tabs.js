@@ -32,6 +32,7 @@ var app = app || {};
 			}
 		},
 		hide:function(){					//прячем таб
+			this.set({hidden:true},{validate:true})
 			var stop=false
 			app.tabs.each(function(a){
 				if (!a.get('hidden') && !a.get('isblocked') && !stop){
@@ -39,8 +40,6 @@ var app = app || {};
 					stop=true
 				}
 			})
-			this.set({hidden:true},{validate:true})
-			
 		},
 		show:function(bool){			//показываем таб
 			this.set({hidden:false},{validate:true})
