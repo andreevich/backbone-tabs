@@ -1,4 +1,4 @@
-﻿var app = app || {};
+var app = app || {};
 
 
 (function () {
@@ -18,30 +18,31 @@
 			hidden:false					// прячем таб
 		},
 		validate:function(attrs, options){
-			if(attrs.isblocked){
-					return "This tab is blocked2"
+			if(attrs.isblocked){			// для заблокированных табов ничего делать нельзя
+					return "This tab is blocked"
 			}
 		},
-		active:function(){
-			app.tabs.each(function(a){
-				a.set({isactive:'' },{validate:true})
-			})
-			
-			this.set({isactive:'active'},{validate:true})
+		active:function(){				// делаем таб+вкладку активными
+			if (!this.get('hidden')){ 	// делаем активную только нескрытую вкладку!
+				app.tabs.each(function(a){
+					a.set({isactive:'' },{validate:true})
+				})
+				
+				this.set({isactive:'active'},{validate:true})
+			}
 		},
-		hide:function(){
-			this.set({hidden:true},{validate:true})
+		hide:function(){					//прячем таб
 			var stop=false
 			app.tabs.each(function(a){
 				if (!a.get('hidden') && !a.get('isblocked') && !stop){
-					console.log('>',a.get('name'))
 					a.active()
 					stop=true
 				}
 			})
+			this.set({hidden:true},{validate:true})
 			
 		},
-		show:function(bool){
+		show:function(bool){			//показываем таб
 			this.set({hidden:false},{validate:true})
 		},
 		f:function(){}					//вызов пустой функции по клику на таб. Переопределяется в основном приложении
@@ -51,17 +52,7 @@
 */	
 	app.Tabs = Backbone.Collection.extend({
 		model: app.TabModel,
-		initialize: function(models) {},
-		getDataByName: function(name){
-			var temp = ""
-			this.each(function(a){
-				if (a.get('name')==name){
-					temp = a;
-					return;
-				}
-			})
-			return temp
-		}
+		initialize: function(models) {}
 	});
 
 	/*
@@ -76,13 +67,7 @@
 		 	this.render()
 		},
 		click:function(){
-			if (!this.model.get("isblocked")){
-				app.tabs.each(function(el){
-					if (!el.get("isblocked"))
-						el.set({isactive:''})
-				})
-				this.model.set({isactive:'active'})
-			}
+			this.model.active()
 			this.model.f()
 		},
 		
@@ -90,7 +75,7 @@
 			this.setElement(this.template(this.model.toJSON()));
 			return this;
 		}
-		});
+	});
 
 	/*
 		Вьюха для списка табов 
@@ -113,6 +98,5 @@
 			},this);
 		}
 	});
-	
-	
+		
 })();
